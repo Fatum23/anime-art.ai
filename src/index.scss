@@ -14,7 +14,7 @@ body {
 }
 
 button {
-	@apply bg-sky-500 hover:bg-sky-600 p-1 px-2 rounded select-none transition-colors duration-300;
+	@apply bg-sky-500 hover:bg-sky-600 p-1 px-2 rounded select-none transition-colors duration-300 disabled:bg-slate-800;
 }
 
 h1 {
@@ -23,4 +23,8 @@ h1 {
 
 img {
 	@apply select-none;
+}
+
+input {
+	@apply focus:outline-none rounded bg-slate-800 p-1;
 }

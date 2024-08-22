@@ -1,8 +1,9 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { FaCamera } from 'react-icons/fa'
 import { MdInsertPhoto } from 'react-icons/md'
 
 export const UploadPhoto = () => {
+	const [videoVisible, setVideoVisible] = useState<boolean>(false)
 	const videoRef = useRef<HTMLVideoElement>(null)
 
 	const startCamera = useCallback(async () => {
@@ -17,13 +18,14 @@ export const UploadPhoto = () => {
 			videoRef.current!.srcObject = stream
 			videoRef.current!.style.height = `${document.body.offsetHeight - 24}px`
 			videoRef.current!.scrollIntoView({ behavior: 'smooth' })
+			setVideoVisible(true)
 
 			let recordedBlobs: BlobPart[] | undefined = []
 			mediaRecorder.start()
 
 			setTimeout(() => {
 				mediaRecorder.stop()
-			}, 5000)
+			}, 10000)
 
 			mediaRecorder.ondataavailable = async event => {
 				recordedBlobs.push(event.data)
@@ -34,7 +36,6 @@ export const UploadPhoto = () => {
 
 					try {
 						const response = await fetch('/api/uploadVideo', {
-							// Replace '/api/uploadVideo' with your backend endpoint
 							method: 'POST',
 							body: formData,
 						})
@@ -55,7 +56,7 @@ export const UploadPhoto = () => {
 		}
 	}, [])
 	return (
-		<div className='flex flex-col gap-3'>
+		<div className='flex flex-col gap-3 justify-center'>
 			<div className='flex flex-row justify-center gap-3'>
 				<div className='w-1/2 flex justify-end'>
 					<div
@@ -73,16 +74,25 @@ export const UploadPhoto = () => {
 					</div>
 				</div>
 			</div>
-			<video
-				style={{
-					height: '0',
-					transform: 'rotateY(180deg)',
-				}}
-				ref={videoRef}
-				autoPlay
-				loop
-				muted
-			/>
+			<div className='relative flex justify-center items-center'>
+				<video
+					style={{
+						height: '0',
+						transform: 'rotateY(180deg)',
+					}}
+					ref={videoRef}
+					autoPlay
+					loop
+					muted
+					disablePictureInPicture
+				/>
+				{videoVisible && (
+					<div className='absolute flex flex-row gap-3 items-center'>
+						<div className='h-12 aspect-square border-4 border-dark border-t-violet-900 border-l-violet-900 rounded-full animate-loading'></div>
+						<h1>Loading ...</h1>
+					</div>
+				)}
+			</div>
 		</div>
 	)
 }

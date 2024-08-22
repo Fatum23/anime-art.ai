@@ -3,8 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-import datetime
-
 app = FastAPI()
 
 origins = ["*"]
@@ -16,16 +14,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.get("/")
-async def root():
-    return "Hello from FastAPI!"
-
-@app.get("/time")
-async def time():
-    return datetime.datetime.now().__str__()
-
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
