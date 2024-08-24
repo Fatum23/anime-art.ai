@@ -63,3 +63,5 @@ async def get_video(filename: str):
 #     finally:
 
 #         clients.remove(websocket)
+
+#TODO delete video on upload to telegram
