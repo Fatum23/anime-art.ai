@@ -17,9 +17,10 @@ app.add_middleware(
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.post("/uploadVideo")
+@app.post("/upload-video")
 async def upload_video(video: UploadFile = File(...)):
     # Save the uploaded video to a file
+    print(video)
     with open(f"static/videos/{video.filename}", "wb") as buffer:
         buffer.write(video.file.read())
 
@@ -32,33 +33,33 @@ async def get_video(filename: str):
     return FileResponse(file_path) 
 
 
-clients = set()
+# clients = set()
 
 
-@app.websocket("/stream")
+# @app.websocket("/stream")
 
-async def stream(websocket: WebSocket):
+# async def stream(websocket: WebSocket):
 
-    await websocket.accept()
+#     await websocket.accept()
 
-    clients.add(websocket)
+#     clients.add(websocket)
 
-    try:
+#     try:
 
-        while True:
+#         while True:
 
-            # Receive a message from the client
+#             # Receive a message from the client
 
-            message = await websocket.receive_bytes()
+#             message = await websocket.receive_bytes()
 
-            # Broadcast the message to all connected clients
+#             # Broadcast the message to all connected clients
 
-            for client in clients:
+#             for client in clients:
 
-                if client != websocket:
+#                 if client != websocket:
 
-                    await client.send_bytes(message)
+#                     await client.send_bytes(message)
 
-    finally:
+#     finally:
 
-        clients.remove(websocket)
+#         clients.remove(websocket)
