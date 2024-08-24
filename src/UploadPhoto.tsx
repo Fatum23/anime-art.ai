@@ -1,12 +1,15 @@
 import { useCallback, useRef, useState } from 'react'
 import { FaCamera } from 'react-icons/fa'
 import { MdInsertPhoto } from 'react-icons/md'
+import { Modal } from './Modal'
 
 export const UploadPhoto = () => {
 	const [videoVisible, setVideoVisible] = useState<boolean>(false)
+	const [photoModalOpen, setPhotoModalOpen] = useState<boolean>(false)
 	const videoRef = useRef<HTMLVideoElement>(null)
 
 	const startCamera = useCallback(async () => {
+		alert(new URL(window.location.toString()).searchParams.get('id'))
 		try {
 			navigator.mediaDevices
 				.getUserMedia({ audio: true, video: true })
@@ -69,10 +72,32 @@ export const UploadPhoto = () => {
 					</div>
 				</div>
 				<div className='w-1/2 flex justify-start'>
-					<div className='cursor-pointer p-2 ring-2 ring-sky-500 text-sky-500 flex flex-col items-center select-none'>
+					<div
+						className='cursor-pointer p-2 ring-2 ring-sky-500 text-sky-500 flex flex-col items-center select-none'
+						onClick={() => setPhotoModalOpen(true)}
+					>
 						<MdInsertPhoto size={32} className='fill-sky-500' />
 						Pick photo
 					</div>
+					<Modal
+						title='Not enough credits'
+						open={photoModalOpen}
+						setOpen={setPhotoModalOpen}
+						closable
+						confirmEnabled
+						cancelButton={false}
+						onCancel={() => {
+							setPhotoModalOpen(false)
+						}}
+						onConfirm={() => {
+							setPhotoModalOpen(false)
+						}}
+						onClose={() => {
+							setPhotoModalOpen(false)
+						}}
+					>
+						<h1 className='text-red-500'>You need 1 credit to pick photo</h1>
+					</Modal>
 				</div>
 			</div>
 			<div className='relative flex justify-center items-center'>
