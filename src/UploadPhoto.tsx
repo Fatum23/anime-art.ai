@@ -54,6 +54,7 @@ export const UploadPhoto = (props: {
 								})
 
 								console.log(response)
+								if (response.ok) console.log('Video uploaded successfully')
 							} catch (error) {
 								console.error('Upload error:', error)
 							}
