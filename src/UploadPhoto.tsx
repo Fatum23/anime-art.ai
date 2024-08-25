@@ -56,7 +56,7 @@ export const UploadPhoto = (props: {
 									}
 								)
 
-								console.log(response)
+								console.log(response.json().then(data => data))
 								if (response.ok)
 									console.log(
 										(tg_id ? tg_id + '-' + timeNow : timeNow) + '.webm'
