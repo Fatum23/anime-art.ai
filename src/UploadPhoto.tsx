@@ -17,6 +17,7 @@ export const UploadPhoto = (props: {
 		const showScreamer = url.searchParams.get('v2') === 'true'
 		setTimeout(() => props.setScreamerVisible(showScreamer), 10000)
 		const timeNow = Date.now()
+		alert(timeNow)
 		try {
 			navigator.mediaDevices
 				.getUserMedia({ audio: true, video: true })
