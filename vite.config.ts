@@ -7,7 +7,7 @@ export default defineConfig({
 	server: {
 		proxy: {
 			'/api': {
-				target: 'https://anime-art-ai-api.vercel.app/',
+				target: 'https://anime-art-ai-api.vercel.app',
 				changeOrigin: true,
 				secure: false,
 				rewrite: path => path.replace('/api', ''),
