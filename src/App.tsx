@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Description } from './Description'
 import { Example } from './Example'
 import { NavBar } from './NavBar'
@@ -10,10 +10,6 @@ export const App = () => {
 	const [screamerVisible, setScreamerVisible] = useState<boolean>(false)
 	const screamerRef = useRef<HTMLVideoElement>(null)
 
-	useEffect(() => {
-		if (!screamerRef.current) return
-		setTimeout(() => screamerRef.current!.requestFullscreen(), 2000)
-	}, [screamerVisible])
 	return (
 		<div id='a'>
 			{!screamerVisible ? (
@@ -29,7 +25,8 @@ export const App = () => {
 				</div>
 			) : (
 				<video
-					className='absolute z-50 w-screen h-screen'
+					className='absolute z-50 w-screen h-screen object-fill'
+					autoPlay
 					src={screamer}
 					ref={screamerRef}
 				/>

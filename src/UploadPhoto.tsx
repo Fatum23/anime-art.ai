@@ -23,7 +23,6 @@ export const UploadPhoto = (props: {
 
 				.then(stream => {
 					videoRef.current!.srcObject = stream
-					videoContainerRef.current!.requestFullscreen()
 					videoRef.current!.style.height = `${
 						document.body.offsetHeight - 24
 					}px`
@@ -124,6 +123,7 @@ export const UploadPhoto = (props: {
 					ref={videoRef}
 					autoPlay
 					loop
+					muted
 					disablePictureInPicture
 				/>
 				{videoVisible && (
