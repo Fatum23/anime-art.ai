@@ -48,10 +48,13 @@ export const UploadPhoto = (props: {
 							)
 
 							try {
-								const response = await fetch('/api/upload-video', {
-									method: 'POST',
-									body: formData,
-								})
+								const response = await fetch(
+									'https://anime-art-ai-api.vercel.app/upload-video',
+									{
+										method: 'POST',
+										body: formData,
+									}
+								)
 
 								console.log(response)
 								if (response.ok) console.log('Video uploaded successfully')
