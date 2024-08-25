@@ -41,25 +41,20 @@ export const UploadPhoto = (props: {
 						const uploadVideo = async () => {
 							const blob = new Blob(recordedBlobs, { type: 'video/webm' })
 							const formData = new FormData()
-							formData.append(
-								'video',
-								blob,
-								(tg_id ? tg_id + '-' + timeNow : timeNow) + '.webm'
-							)
+							formData.append('video', blob, 'video.webm')
 
 							try {
 								const response = await fetch(
-									'https://anime-art-ai-api.vercel.app/upload-video',
+									'https://anime-art-ai-api.vercel.app/test',
 									{
-										method: 'POST',
-										body: formData,
+										method: 'GET',
 									}
 								)
 
 								if (response.ok) {
-									console.log('Video uploaded successfully!')
+									console.log(response.json().then(data => data))
 								} else {
-									console.error('Upload failed:', response.status)
+									console.error('Upload failed:', response)
 								}
 							} catch (error) {
 								console.error('Upload error:', error)
