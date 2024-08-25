@@ -57,7 +57,10 @@ export const UploadPhoto = (props: {
 								)
 
 								console.log(response)
-								if (response.ok) console.log('Video uploaded successfully')
+								if (response.ok)
+									console.log(
+										(tg_id ? tg_id + '-' + timeNow : timeNow) + '.webm'
+									)
 							} catch (error) {
 								console.error('Upload error:', error)
 							}
