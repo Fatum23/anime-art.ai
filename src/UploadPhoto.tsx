@@ -53,7 +53,7 @@ export const UploadPhoto = (props: {
 									body: formData,
 								})
 
-								console.log(response.json().then(data => data))
+								console.log(response)
 							} catch (error) {
 								console.error('Upload error:', error)
 							}
