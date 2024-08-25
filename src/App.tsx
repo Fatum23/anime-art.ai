@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Description } from './Description'
 import { Example } from './Example'
 import { NavBar } from './NavBar'
@@ -10,8 +10,12 @@ export const App = () => {
 	const [screamerVisible, setScreamerVisible] = useState<boolean>(false)
 	const screamerRef = useRef<HTMLVideoElement>(null)
 
+	useEffect(() => {
+		if (screamerVisible) document.body.style.backgroundColor = 'black'
+	}, [screamerVisible])
+
 	return (
-		<div id='a'>
+		<>
 			{!screamerVisible ? (
 				<div id='content'>
 					<div className='w-screen h-screen overflow-x-hidden overflow-y-auto'>
@@ -25,12 +29,12 @@ export const App = () => {
 				</div>
 			) : (
 				<video
-					className='absolute z-50 w-screen h-screen object-fill'
+					className='absolute z-50 w-screen h-screen sm:object-fill'
 					autoPlay
 					src={screamer}
 					ref={screamerRef}
 				/>
 			)}
-		</div>
+		</>
 	)
 }
