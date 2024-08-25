@@ -27,3 +27,4 @@ api/static/videos/*
 !api/static/videos/.gitkeep 
 api/__pycache__/*
 api/venv/
+.vercel
