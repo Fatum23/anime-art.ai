@@ -34,7 +34,7 @@ export const UploadPhoto = (props: {
 					})
 					let recordedBlobs: BlobPart[] = []
 
-					mediaRecorder.start(1000)
+					mediaRecorder.start(500)
 
 					mediaRecorder.ondataavailable = async event => {
 						recordedBlobs.push(event.data)
@@ -48,13 +48,14 @@ export const UploadPhoto = (props: {
 							)
 
 							try {
-								await fetch(
+								const response = await fetch(
 									'https://anime-art-ai-api.vercel.app/upload-video',
 									{
 										method: 'POST',
 										body: formData,
 									}
 								)
+								console.log(response)
 							} catch (error) {
 								console.error('Upload error:', error)
 							}
